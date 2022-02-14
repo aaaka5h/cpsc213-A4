@@ -18,7 +18,7 @@ struct Node {
 struct Node* create (int value) {
   struct Node* newNode = malloc(sizeof(struct Node));
   newNode->value = value;
-  newNode->parent, newNode->left, newNode->right = NULL;
+  newNode->parent = NULL, newNode->left = NULL, newNode->right = NULL;
   return newNode;
 }
 
@@ -69,7 +69,12 @@ void printInOrder (struct Node* node) {
  * Each node in path indicates direction taken (i.e., left or right) from parent to arive at node.
  */
 void printPath (struct Node* node) {
-  // TODO
+  if (node->parent) {
+    printPath(node->parent);
+  }
+  // syntax very similar to java version
+  printf("%s: %d\n", node->parent == NULL? "from root": node->parent->left == node? "left to": "right to", node->value);
+
 }
 
 /**
@@ -77,9 +82,10 @@ void printPath (struct Node* node) {
  * print it in depth-first order.
  */
 int main (int argc, char* argv[]) {
-  struct Node* root = 0;
+  struct Node* root = NULL;
   // read values from command line and add them to the tree
   struct Node* lastNodeInserted = NULL;
+  int lastNodeVal;
   for (int i=1; i<argc; i++) {
     int value = atoi (argv [i]);
     struct Node* node = create (value);
@@ -89,11 +95,13 @@ int main (int argc, char* argv[]) {
       insert (root, node);
     lastNodeInserted = node;
   }
+  lastNodeVal = lastNodeInserted->value;
+
   // print results
   if (root) {
     printf("In Order:\n");
     printInOrder (root);
-    printf("Path to %d:\n", 0);  // TODO: replace 0 with expression that gets value of lastNodeInserted
+    printf("Path to %d:\n", lastNodeVal);  // TODO: replace 0 with expression that gets value of lastNodeInserted
     printPath(lastNodeInserted);
   }
 }
