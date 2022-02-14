@@ -22,7 +22,7 @@ int num_names = 0;
 
 void add_name(char *name) {
   // Allocate space for a copy of the name
-  names[num_names] = my_malloc(sizeof(name));
+  names[num_names] = my_malloc(strlen(name)+1);
   // Copy name to new area in memory
   strcpy(names[num_names], name);
   // Add one to num_names
