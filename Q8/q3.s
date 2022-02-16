@@ -22,7 +22,7 @@ code:
                 st r6, 0x0(r7)                # v2 = s.z->x[i]
 
                 # v3 = s.z->z->y[i];
-                ld 0x10(r5), r6               # r6 = s.z->z
+                ld 0xc(r5), r6                # r6 = s.z->z
                 ld 0x8(r6), r5                # r5 = s.z->z->y[0]
                 ld (r5, r2, 4), r5            # r5 = s.z->z->y[i]
                 ld $v3, r6                    # r6 = address of v3 
@@ -47,14 +47,16 @@ s:              .long 0x00000005              # x[0] = 5
 heap:           
 s_y:            .long 0x00000002              # s.y[0] = 2
                 .long 0x00000004              # s.y[1] = 4
+
 s_z:            .long 0x00000006              # s.z->x[0] = 6
                 .long 0x00000008              # s.z->x[1] = 8
-                .long 0x00000003              # s.z->y[0] = 3
-                .long 0x00000005              # s.z->y[1] = 5
+                .long 0x00000003              # s.z->y = 3
                 .long s_z_z                   # s.z->z
+
 s_z_z:          .long 0x00000007              # s.z->z->x[0] = 7
                 .long 0x00000009              # s.z->z->x[1] = 9
                 .long s_z_z_y                 # s.z->z->y
                 .long 0x00000002              # s.z->z->z
+
 s_z_z_y:        .long 0x00000004              # s.z->z->y[0] = 4
                 .long 0x0000000f              # s.z->z->y[1] = 15
