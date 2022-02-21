@@ -1,6 +1,7 @@
 # cpsc213-A4 Structs and Instance Variables
 
 ## Q4-6 ##
+- Practiced creating Makefiles
 - Implementing malloc and free correctly to debug faulty C program
 - Using gdb to find and fix bugs
 
